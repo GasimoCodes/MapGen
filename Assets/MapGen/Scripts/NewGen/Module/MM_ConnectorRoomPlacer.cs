@@ -60,6 +60,10 @@ namespace ALOB.Map
                     exitLocations = connector.getConnectorsTo();
                 }
 
+                if(exitLocations == null)
+                {
+                    MapGenLogger.LogError("<color=red>Map config invalid, connector refers to zone which doesnt exist</color>");
+                }
 
                 foreach (CellData cD in exitLocations)
                 {

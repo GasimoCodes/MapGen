@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace ALOB.Map
 {
+    /// <summary>
+    /// Logger method and formatter for MapGen. 
+    /// </summary>
+    // TODO: Hide this class from StackTrace as its only a logger
     public static class MapGenLogger
     {
         public static void Log(object obj, string module = "")
