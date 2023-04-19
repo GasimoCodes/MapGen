@@ -40,12 +40,12 @@ namespace ALOB.Map
 
                 if (candidates.Count == 0)
                 {
-                    MapGenLogger.Log("<color=red>[GEN] Exit spawner will fail because no rooms were marked as exits!</color>");
+                    MapGenLogger.Log("<color=red>Exit spawner will fail because no rooms were marked as exits!</color>");
                 }
 
                 if (connector.maxAmountOfConnections > (gMP.gridSizeX / 2))
                 {
-                    MapGenLogger.Log("<color=orange>[GEN] Exit spawner may fail because you have selected a big amount of exits / gridSize</color>");
+                    MapGenLogger.Log("<color=orange>Exit spawner may fail because you have selected a big amount of exits / gridSize</color>");
                 }
 
                 // Get direction to orient exit rooms in
