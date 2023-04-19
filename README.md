@@ -54,3 +54,6 @@ Contains necessary definitions to define the map and its zones.
 ## Documentation and Tech Overview
 [Google Doc](https://docs.google.com/document/d/1rY4tgInwJ9if1UFdFK7_NyAuGlZ8Y0QX9g3KuYgEy9A/edit?usp=sharing)
 
+#### Attribution
+This project uses 3rd party asset Array2DEditor by Eldoir https://github.com/Eldoir/Array2DEditor for displaying neat 2D arrays in the editor.
+
