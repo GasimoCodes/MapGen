@@ -64,16 +64,10 @@ namespace ALOB.Map
             Debug.Log("Finished all 500");
         }
 
-  
-
-        public void Start()
-        {
-            Application.targetFrameRate = 60;
-            EnabledInPlaymodeOnly();
-        }
+ 
 
         [Button]
-        public void ClearLog() //you can copy/paste this code to the bottom of your script
+        public void ClearLog()
         {
             var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
             var type = assembly.GetType("UnityEditor.LogEntries");
@@ -81,7 +75,28 @@ namespace ALOB.Map
             method.Invoke(new object(), null);
         }
 
-        #endif
+#endif
+
+        public void Start()
+        {
+            Application.targetFrameRate = 60;
+            EnabledInPlaymodeOnly();
+        }
+
+
+#if DEVELOPMENT_BUILD
+
+        public void EnabledInPlaymodeOnly()
+        {
+
+            NewGen ng = this.GetComponent<NewGen>();
+            if (seed == 0)
+                ng.generateMap((UnityEngine.Random.Range(10000000, 99999999)));
+            else
+                ng.generateMap((seed));
+        }
+
+#endif
 
     }
 }
