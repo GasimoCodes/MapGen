@@ -57,4 +57,5 @@ Contains necessary definitions to define the map and its zones.
 
 #### Attribution
 This project uses 3rd party asset Array2DEditor by Eldoir https://github.com/Eldoir/Array2DEditor for displaying neat 2D arrays in the editor.
+NaughtyAttributes by were used to quickly create better inspector windows. See https://github.com/dbrizov/NaughtyAttributes
 
