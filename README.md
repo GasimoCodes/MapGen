@@ -1,6 +1,7 @@
 # MapGen
 
-For a given set of valid user-selected data generate an appropriate 2D map (in style of 2012 [SCP Containment Breach](https://github.com/Regalis11/scpcb)). This repository is under active development, and although mostly usable, is not intended for production.
+For a given set of valid user-selected data, generate a random 2D map (in style of 2012 [SCP Containment Breach](https://github.com/Regalis11/scpcb)). This project generates zones truly randomly going room by room, as opposed to SCP:CBs reliance on describing clusters of rooms.
+*This repository is under active development, and although mostly usable, is not intended for production.*
 
 ![image](https://user-images.githubusercontent.com/22917863/232846068-3ee4f28c-2c7d-433a-9555-9570d819ec3a.png)
 
