@@ -15,14 +15,14 @@ MonoBehaviour:
   roomName: genericRoomName
   shape: 2
   pathFinderTravelCost: 2
-  large: 0
-  expandRelativeToOrigin: []
-  isCheckpoint: 0
+  large: 1
+  expandRelativeToOrigin:
+  - {x: 0, y: -1}
+  isExit: 0
   roomAddr:
     m_AssetGUID: 622c717e9fcbb8c4c8c36d0899f7349b
     m_SubObjectName: 
     m_SubObjectType: 
-    m_EditorAssetChanged: 0
   mustSpawn: 1
   spawnChance: 10
   spawnOnce: 0

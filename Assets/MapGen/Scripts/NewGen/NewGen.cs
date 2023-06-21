@@ -36,7 +36,7 @@ namespace ALOB.Map
         /// </summary>
         private GameObject mapParent;
 
-        
+        private string mapHash;
 
         [Header("Gizmo")]
         public bool debugGizmo = false;
@@ -60,11 +60,6 @@ namespace ALOB.Map
         /// <param name="mapSeed">Seed the map will generate with.</param>
         public bool generateMap(int mapSeed)
         {
-            if (gMP == null)
-            {
-                MapGenLogger.LogError("Map preset not assigned.");
-                return false;
-            }
 
             // Clean up
             CleanUp();
@@ -76,7 +71,7 @@ namespace ALOB.Map
             // Generate random seed
             randomGen = new System.Random(mapSeed);
 
-            MapGenLogger.Log("<color=blue>Started generating map seed: " + mapSeed + "</color>");
+            MapGenLogger.Log("<color=blue>[Gen] Started generating map seed: " + mapSeed + "</color>");
 
 
             // Prevent spam of new parents on new generation
@@ -84,12 +79,10 @@ namespace ALOB.Map
                 mapParent = new GameObject("GeneratorParent");
 
 
-            
             // Move zones from editor array into our coordinate array which we work with using the modules below.
             placeZones();
 
             // - - - MODULES FOR ZONEGRID BEFORE ROOM SPAWN
-            #region OnPrepareZone Modules
 
             // Generate grids for each zone
             MM_GridGen MM_GG = new MM_GridGen(randomGen, gMP);
@@ -99,10 +92,9 @@ namespace ALOB.Map
             // Generate exits for each zone
             MM_Connector MM_C = new MM_Connector(randomGen, gMP);
             MM_C.OnPrepareZones(zoneGrid);
-            #endregion
+
 
             // - - - MODULES FOR ROOM SPAWNS PER GRID
-            #region PerZone Modules
 
             // Populate each zone with mustSpawn rooms on the grid.
             for (int x = 0; x < zoneGrid.GetLength(0); x += 1)
@@ -139,10 +131,7 @@ namespace ALOB.Map
                 }
             }
 
-            #endregion
-
-            // After we build all the zones, execute this block
-            #region zoomSpawner Module
+            // Do a spawn pass separately after all zones are configd correctly
             for (int x = 0; x < zoneGrid.GetLength(0); x += 1)
             {
                 for (int y = 0; y < zoneGrid.GetLength(1); y += 1)
@@ -157,14 +146,24 @@ namespace ALOB.Map
                     // Spawn room assets
                     if (!disableSpawn && !failed)
                         failed = spawnRoomsAll(ref zoneGrid[x, y]);
+
+                    if (failed)
+                    {
+                        throw (new Exception("Spawning room assets failed for " + zoneGrid[x, y].name + ", "));
+
+                        if (cleanUpOnFail)
+                            CleanUp();
+                        return false;
+                    }
                 }
             }
-            #endregion
+
+
 
 
             // We are done here.
             watch.Stop();
-            MapGenLogger.Log("<color=cyan>Finished generating at " + watch.ElapsedMilliseconds + " ms. for seed " + mapSeed + "</color>");
+            MapGenLogger.Log("<color=green>[Gen] Finished generating at " + watch.ElapsedMilliseconds + " ms. for seed " + mapSeed + "</color>");
 
             return true;
 
@@ -214,10 +213,9 @@ namespace ALOB.Map
             float offsetX = (zoneObj.getGridSizeX() * gMP.spacing * zoneObj.getGlobalLocation().x);
             float offsetY = (zoneObj.getGridSizeY() * gMP.spacing * zoneObj.getGlobalLocation().y);
 
-            List<Vector2Int> RoomsToSpawn = new List<Vector2Int>();
-            RoomsToSpawn.AddRange(zoneObj.mustSpawnLocations);
-            RoomsToSpawn.AddRange(zoneObj.pathLocation);
-
+            HashSet<Vector2Int> RoomsToSpawn = new HashSet<Vector2Int>();
+            RoomsToSpawn.UnionWith(zoneObj.mustSpawnLocations);
+            RoomsToSpawn.UnionWith(zoneObj.pathLocation);
 
 
             foreach (Vector2Int location in RoomsToSpawn)
@@ -349,19 +347,18 @@ namespace ALOB.Map
                                             {
                                                 Gizmos.color = new Color(0, 0, 1, 0.1f);
                                             }
-
+                                            
                                             // TEXT RENDERING
                                             name = cD.loc + "/" + cD.getRoom().getData().name + "\n" + cD.getRoom().angle;
 
-                                        }
-                                        else
+                                        } else
                                         {
                                             Gizmos.color = new Color(1, 0, 0, 0.1f);
                                             name = cD.loc.ToString();
                                         }
 
 
-
+                                        
                                         break;
                                     }
                                 case containerType.RESERVED:

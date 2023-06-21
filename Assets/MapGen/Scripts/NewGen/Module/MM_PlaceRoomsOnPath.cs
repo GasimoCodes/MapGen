@@ -38,9 +38,10 @@ namespace ALOB.Map
             List<RoomData> shapeTCandidates = new List<RoomData>();
             List<RoomData> shapeFourCandidates = new List<RoomData>();
 
+            // Filter rooms and put em into candidates based on shape
             foreach (catalogueEntry cE in zoneObj.roomCatalogue)
             {
-
+                // Do not use mustSpawn or exit rooms as they have been placed previously
                 if (cE.room.isExit || cE.room.mustSpawn)
                     continue;
 
@@ -89,6 +90,7 @@ namespace ALOB.Map
                 return true;
             }
 
+            // For each position of path in the map, assign room
             foreach (Vector2Int location in zoneObj.pathLocation)
             {
 
@@ -131,30 +133,30 @@ namespace ALOB.Map
                         // FourDoors, rotation independent
                         case 1111:
                             {
-                                toSpawn = new Room(shapeFourCandidates[randomGen.Next(0, shapeFourCandidates.Count - 1)]);
+                                toSpawn = new Room(shapeFourCandidates[randomGen.Next(0, shapeFourCandidates.Count)]);
                                 break;
                             }
                         //-------------------------------------------------- T SHAPE
                         case 0111: // Facing North
                             {
-                                toSpawn = new Room(shapeTCandidates[randomGen.Next(0, shapeTCandidates.Count - 1)]);
+                                toSpawn = new Room(shapeTCandidates[randomGen.Next(0, shapeTCandidates.Count)]);
                                 break;
                             }
                         case 1101: // Facing East
                             {
-                                toSpawn = new Room(shapeTCandidates[randomGen.Next(0, shapeTCandidates.Count - 1)]);
+                                toSpawn = new Room(shapeTCandidates[randomGen.Next(0, shapeTCandidates.Count)]);
                                 rotateBy = 1;
                                 break;
                             }
                         case 1110: // Facing SOUTH
                             {
-                                toSpawn = new Room(shapeTCandidates[randomGen.Next(0, shapeTCandidates.Count - 1)]);
+                                toSpawn = new Room(shapeTCandidates[randomGen.Next(0, shapeTCandidates.Count)]);
                                 rotateBy = 2;
                                 break;
                             }
                         case 1011: // Facing WEST
                             {
-                                toSpawn = new Room(shapeTCandidates[randomGen.Next(0, shapeTCandidates.Count - 1)]);
+                                toSpawn = new Room(shapeTCandidates[randomGen.Next(0, shapeTCandidates.Count)]);
                                 rotateBy = 3;
                                 break;
                             }
@@ -162,12 +164,12 @@ namespace ALOB.Map
 
                         case 1001: //North or South
                             {
-                                toSpawn = new Room(shapeHallwayCandidates[randomGen.Next(0, shapeHallwayCandidates.Count - 1)]);
+                                toSpawn = new Room(shapeHallwayCandidates[randomGen.Next(0, shapeHallwayCandidates.Count)]);
                                 break;
                             }
                         case 0110: // WEST or EAST
                             {
-                                toSpawn = new Room(shapeHallwayCandidates[randomGen.Next(0, shapeHallwayCandidates.Count - 1)]);
+                                toSpawn = new Room(shapeHallwayCandidates[randomGen.Next(0, shapeHallwayCandidates.Count)]);
                                 rotateBy = 1;
                                 break;
                             }
@@ -175,27 +177,27 @@ namespace ALOB.Map
 
                         case 0011: //North
                             {
-                                toSpawn = new Room(shapeCRoomCandidates[randomGen.Next(0, shapeCRoomCandidates.Count - 1)]);
+                                toSpawn = new Room(shapeCRoomCandidates[randomGen.Next(0, shapeCRoomCandidates.Count)]);
                                 break;
                             }
 
                         case 0101: //EAST
                             {
-                                toSpawn = new Room(shapeCRoomCandidates[randomGen.Next(0, shapeCRoomCandidates.Count - 1)]);
+                                toSpawn = new Room(shapeCRoomCandidates[randomGen.Next(0, shapeCRoomCandidates.Count)]);
                                 rotateBy = 1;
                                 break;
                             }
 
                         case 1100: //SOUTH
                             {
-                                toSpawn = new Room(shapeCRoomCandidates[randomGen.Next(0, shapeCRoomCandidates.Count - 1)]);
+                                toSpawn = new Room(shapeCRoomCandidates[randomGen.Next(0, shapeCRoomCandidates.Count)]);
                                 rotateBy = 2;
                                 break;
                             }
 
                         case 1010: //WEST
                             {
-                                toSpawn = new Room(shapeCRoomCandidates[randomGen.Next(0, shapeCRoomCandidates.Count - 1)]);
+                                toSpawn = new Room(shapeCRoomCandidates[randomGen.Next(0, shapeCRoomCandidates.Count)]);
                                 rotateBy = 3;
                                 break;
                             }
@@ -204,14 +206,14 @@ namespace ALOB.Map
 
                         case 0001: //NORTH
                             {
-                                toSpawn = new Room(shapeEndroomCandidates[randomGen.Next(0, shapeEndroomCandidates.Count - 1)]);
+                                toSpawn = new Room(shapeEndroomCandidates[randomGen.Next(0, shapeEndroomCandidates.Count)]);
                                 break;
                             }
 
 
                         case 0100: // EAST
                             {
-                                toSpawn = new Room(shapeEndroomCandidates[randomGen.Next(0, shapeEndroomCandidates.Count - 1)]);
+                                toSpawn = new Room(shapeEndroomCandidates[randomGen.Next(0, shapeEndroomCandidates.Count)]);
                                 rotateBy = 1;
                                 break;
                             }
@@ -219,7 +221,7 @@ namespace ALOB.Map
 
                         case 1000: // SOUTH
                             {
-                                toSpawn = new Room(shapeEndroomCandidates[randomGen.Next(0, shapeEndroomCandidates.Count - 1)]);
+                                toSpawn = new Room(shapeEndroomCandidates[randomGen.Next(0, shapeEndroomCandidates.Count)]);
                                 rotateBy = 2;
                                 break;
                             }
@@ -227,7 +229,7 @@ namespace ALOB.Map
 
                         case 0010: // WEST
                             {
-                                toSpawn = new Room(shapeEndroomCandidates[randomGen.Next(0, shapeEndroomCandidates.Count - 1)]);
+                                toSpawn = new Room(shapeEndroomCandidates[randomGen.Next(0, shapeEndroomCandidates.Count)]);
                                 rotateBy = 3;
                                 break;
                             }

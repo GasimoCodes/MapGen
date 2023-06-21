@@ -240,6 +240,28 @@ public class MM_Connector : MapGenModule, IGenBeforeSpawn
 
                             zC.setConnectorsTo(refZone.getExitLocations());
 
+
+                            // - - - Lets plant actual rooms into the ref zone candidates!
+                            /*
+
+                            roomList = refZone.roomCatalogue.Where(x => x.room.isExit).ToList();
+                            if (roomList.Count == 0)
+                            {
+                                Debug.Log("[GEN] Exit spawner will fail because no rooms were marked as exits");
+                            }
+
+                            exitSpawner = new MM_MustSpawnRooms(randomGen, gMP, false, 32);
+
+                            foreach (CellData cells in refZone.getExitLocations().ToList())
+                            {
+                                // Based on where the above zone is, well need to rotate the exit. The default exit location when facing north is DOWN for all the rooms.
+                                ALOB.Map.Room r = exitSpawner.placeRoomImportant(refZone, roomList[randomGen.Next(0, roomList.Count - 1)].room, cells, refZone.getExitLocations().ToList());
+                            }
+
+                            */
+
+
+
                         }
                     }
                 }

@@ -72,5 +72,5 @@ MonoBehaviour:
       - BLv1
       - 
       - 
-  gridSizeX: 10
+  gridSizeX: 5
   spacing: 20
