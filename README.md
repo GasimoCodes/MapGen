@@ -32,9 +32,9 @@ Contains necessary definitions to define one room preset. These files are then u
 | Path Finder Travel Cost | Changes the probability of this room being a walk-through room. |
 | Large | If the room extends past a single cell. |
 | Expand Relative to Origin | If the Large field is marked, this array identifies all the relative cells which this room expands into. |
-|Is Exit | Marks this room to be used as a zone connector. |
+|Is Exit | Marks this room to be used as a zone connector. When tagging roomShape, ignore the exit direction (north) -> 4Way room with exit north is tagged as T room etc.|
 |Room Addr | The 3D art asset of the room. This can be a prefab/addressable. |
-|MustSpawn | Marks this room as important - all these rooms must spawn. |
+|MustSpawn | Marks this room as important - all these rooms must spawn. Do not mix with exit flag. |
 
 
 
