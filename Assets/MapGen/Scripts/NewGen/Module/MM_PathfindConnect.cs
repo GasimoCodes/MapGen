@@ -73,7 +73,21 @@ namespace ALOB.Map
                 if (origin.loc == mustConnect[x])
                     continue;
 
+                /*
+                if (origin.getRoom().getData().name == "Exit_2Hallway")
+                {
+                    Debug.Log("Trace");
+                    throw (new Exception());
+                    List<CellData> kids = origin.getReachableNeighbours(true);
+                }
+                */
+
+                // This is a hack to refresh assigned zones after copying data from failed generation attempts
+                origin.setAssignedZone(zoneObj);
+
                 List<CellData> path = VectorUtils.getPath(origin, zoneObj.getCellAt(mustConnect[x]), zoneObj);
+
+
 
                 // Failure should never happen as we check validy with BFS prior! Report exception.
                 if (path == null)

@@ -27,6 +27,11 @@ namespace ALOB.Map
             return z;
         }
 
+        public void setAssignedZone(Zone z)
+        {
+            this.z = z;
+        }
+
         #region pathfinding
 
         // Travel cost for pathfinding prioritizations. Default for empty cells is 5, for cells with passthrough rooms we lower to 2.
@@ -215,7 +220,7 @@ namespace ALOB.Map
 
         public override string ToString()
         {
-            string tmp = "Loc: " + loc.ToString() + ", Type: " + containerType + " ";
+            string tmp = "<color=gray>Loc: " + loc.ToString() + ", Type: " + containerType + " </color>";
 
             if (getRoom()  != null)
             {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Exit_2Hallway
   m_EditorClassIdentifier: 
   roomName: genericRoomName
-  shape: 1
+  shape: 0
   pathFinderTravelCost: 2
   large: 0
   expandRelativeToOrigin: []

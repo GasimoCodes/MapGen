@@ -7,7 +7,7 @@ public class MapGenModule
 {
     protected System.Random randomGen;
     protected GeneratorMapPreset gMP;
-
+    protected string moduleName;
     public MapGenModule(System.Random randomGen, GeneratorMapPreset gMP)
     {
         this.randomGen = randomGen;

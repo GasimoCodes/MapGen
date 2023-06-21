@@ -119,7 +119,7 @@ namespace ALOB.Map
                 }
                 else if (tar.containerType == containerType.BLOCKED)
                 {
-                    Debug.LogWarning("An blocked cell at doors found.");
+                    Debug.LogWarning("An blocked cell at doors found while trying to spawn " + cellGrid[x, y]+ ": " + tar + " Make sure the room is properly configured.");
                 }
             }
 

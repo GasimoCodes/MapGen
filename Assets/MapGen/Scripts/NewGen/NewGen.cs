@@ -107,9 +107,10 @@ namespace ALOB.Map
                     }
 
                     // Populate exit cells
-                    bool failed = new MM_ConnectorRoomPlacer(randomGen, gMP, false, maxIterationsBeforeFallback).PerZoneModule(ref zoneGrid[x, y]);
+                    bool failed = new MM_ConPlacer(randomGen, gMP, false, maxIterationsBeforeFallback).PerZoneModule(ref zoneGrid[x, y]);
 
                     // Populates the grid with containers for rooms which must spawn.
+                    if(!failed)
                     failed = new MM_MustSpawnRooms(randomGen, gMP, disableBFS, maxIterationsBeforeFallback).PerZoneModule(ref zoneGrid[x, y]);
 
                     // Find paths to connect all rooms together

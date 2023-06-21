@@ -94,9 +94,6 @@ namespace ALOB.Map
                     
                     MapGenLogger.Log("<color=yellow>[" + zoneAttempts + "] Attempt to generate " + zoneObj.name + ".</color>");
 
-                    
-                    
-                    MapGenLogger.Log($"<color=blue>{zoneObj.name}: {zoneObj.getCellAt(new Vector2Int(3, 0))}</color>");
 
                 }
 

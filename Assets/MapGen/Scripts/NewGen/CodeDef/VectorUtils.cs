@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 
 namespace ALOB.Map
@@ -233,6 +234,9 @@ namespace ALOB.Map
         /// <returns>Path to target, null if no path exists</returns>
         public static List<CellData> getPath(CellData from, CellData target, Zone zoneObj)
         {
+
+
+
             //Debug.Log("from " + from.loc + " to " + target.loc);
 
             System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
@@ -249,6 +253,8 @@ namespace ALOB.Map
             // Loop until we BREAK or reach all reachable nodes.
             while (openList.Count > 0)
             {
+
+
                 // Sort openList
                 openList = openList.OrderBy(x => x.ph_fCost).ToList();
 
@@ -292,11 +298,12 @@ namespace ALOB.Map
                 }
 
 
+
                 // For each of currentNode neighbours:
                 foreach (CellData child in currentNode.getReachableNeighbours(true))
                 {
 
-                    //Debug.Log("Exploring Child of " + currentNode.loc + "/ " + child.loc);
+                    // Debug.Log("Exploring Child of " + currentNode.loc + "/ " + child.loc);
 
                     // If on closedList, we ignore.
                     if (child.ph_isOnClosedList)
@@ -329,7 +336,6 @@ namespace ALOB.Map
                         }
                     }
                 }
-
             }
 
             // Reset the traversion

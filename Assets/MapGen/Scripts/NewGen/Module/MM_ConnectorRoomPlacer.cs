@@ -6,13 +6,15 @@ using UnityEngine;
 
 namespace ALOB.Map
 {
-    public class MM_ConnectorRoomPlacer : MapGenModule, IGenRoomSpawn
+    public class MM_ConPlacer : MapGenModule, IGenRoomSpawn
     {
         bool disableBFS;
         int maxIterationsBeforeFallback;
+        
 
-        public MM_ConnectorRoomPlacer(System.Random randomGen, GeneratorMapPreset gMP, bool disableBFS, int maxIterationsBeforeFallback) : base(randomGen, gMP)
+        public MM_ConPlacer(System.Random randomGen, GeneratorMapPreset gMP, bool disableBFS, int maxIterationsBeforeFallback) : base(randomGen, gMP)
         {
+            this.moduleName = "ConPlacer";
             this.disableBFS = disableBFS;
             this.maxIterationsBeforeFallback = maxIterationsBeforeFallback;
         }
@@ -29,23 +31,28 @@ namespace ALOB.Map
         /// <param name="zoneObj"></param>
         bool populateGrid(ref Zone zoneObj)
         {
+            
             string refName = zoneObj.name;
             zoneConnector[] connectors = gMP.connections.Where(c => (c.fromZone == refName || c.toZone == refName)).ToArray();
 
+            // For each connector we have described
             foreach (zoneConnector connector in connectors)
             {
                 Direction dir;
                 CellData[] exitLocations;
+
+                // Candidates for exit rooms
                 List<catalogueEntry> candidates = zoneObj.roomCatalogue.Where(x => x.room.isExit).ToList();
 
                 if (candidates.Count == 0)
                 {
-                    MapGenLogger.Log("<color=red>[GEN] Exit spawner will fail because no rooms were marked as exits!</color>");
+                    MapGenLogger.Log("<color=red>Cannot spawn exits because there are no defined exit rooms in the template!</color>", moduleName);
+                    return false;
                 }
 
                 if (connector.maxAmountOfConnections > (gMP.gridSizeX / 2))
                 {
-                    MapGenLogger.Log("<color=orange>[GEN] Exit spawner may fail because you have selected a big amount of exits / gridSize</color>");
+                    MapGenLogger.Log("<color=orange>Exit spawner may fail because you have selected a big amount of exits / gridSize</color>", moduleName);
                 }
 
                 // Get direction to orient exit rooms in
@@ -63,13 +70,11 @@ namespace ALOB.Map
 
                 foreach (CellData cD in exitLocations)
                 {
+                    // Make sure not to overwrite existing exits
+                    if (cD.getRoom() != null)
+                        continue;
+
                     Room r = placeExit(zoneObj, candidates.ToArray(), cD, exitLocations, dir);
-
-                    if (r == null)
-                    {
-                        // There was an error generating exits
-
-                    }
 
                     zoneObj.setRoomAt(cD.loc.x, cD.loc.y, r);
                 }
@@ -125,9 +130,6 @@ namespace ALOB.Map
 
                 cDPreset.setRoom(r);
 
-                // Debug.Log("<color=orange>ATTEMPT TO SPAWN: " + r.getData().name + cDPreset.loc + " " + zoneObj.name + " at " + cDPreset.loc + "</color>");
-
-
                 allPass = true;
 
                 // If room is large, we make sure the extensions are valid positions.
@@ -182,7 +184,7 @@ namespace ALOB.Map
 
                 if (allPass == false)
                 {
-                    MapGenLogger.Log("<color=orange>FAILED: " + r + " " + zoneObj.name + " due " + debugMessage + "</color>");
+                    MapGenLogger.Log("<color=orange>FAILED: " + r + " " + zoneObj.name + " due " + debugMessage + "</color>", moduleName);
                     continue;
                 }
                 else
@@ -205,14 +207,14 @@ namespace ALOB.Map
                     }
                 }
 
-                MapGenLogger.Log("<color=green>EXIT spawned: " + r + " " + zoneObj.name + "</color>");
+                MapGenLogger.Log("<color=green>EXIT spawned: " + r + " " + zoneObj.name + "</color>", moduleName);
                 // If no problems occured, mark blocked cells, reserved cells and go.
                 return r;
             }
             else
             {
                 // Room cannot be here.
-                MapGenLogger.Log("<color=red>" + zoneObj.name + " Spawn attempt failed for " + r.getData().name + cDPreset.loc + ", due to: " + debugMessage + "</color>");
+                MapGenLogger.LogError(zoneObj.name + " Spawn attempt failed for " + r.getData().name + cDPreset.loc + ", due to: " + debugMessage);
                 cDPreset.containerType = temp.containerType;
                 return null;
 

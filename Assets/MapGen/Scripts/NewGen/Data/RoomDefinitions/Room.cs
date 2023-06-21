@@ -32,6 +32,11 @@ namespace ALOB.Map
             // Copy room data
             data = rD;
 
+            if(data == null)
+            {
+                MapGenLogger.LogError("Attempt to create an empty room, this is not allowed.");
+            }
+
             // Copy the relativeFromOrigin here so we wont change source assets.
             expandRelativeToOrigin = (Vector2Int[])data.expandRelativeToOrigin.Clone();
             
