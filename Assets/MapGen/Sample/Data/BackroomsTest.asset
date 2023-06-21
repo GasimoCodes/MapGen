@@ -52,16 +52,38 @@ MonoBehaviour:
     mustSpawnLocations: []
     exitLocations: []
     pathLocation: []
+  - name: BLv3
+    traversingExistingPathsCost: 0
+    roomCatalogue:
+    - room: {fileID: 11400000, guid: 09fbd55957c813c40a0af21d04c997e4, type: 2}
+    - room: {fileID: 11400000, guid: 32b3b900116646747890969f1ed13ae5, type: 2}
+    - room: {fileID: 11400000, guid: 4db6b087c6ba6f647910207ed6ca0c7c, type: 2}
+    - room: {fileID: 11400000, guid: a74d3f28a64a6614e8b46354274745d3, type: 2}
+    - room: {fileID: 11400000, guid: 93f0907d4a759bc40a0f160351b4e97f, type: 2}
+    - room: {fileID: 11400000, guid: 045374c816a95e34ca4096add2c6c0ee, type: 2}
+    - room: {fileID: 11400000, guid: e50caddaf18755c4cb71549bf45bdce0, type: 2}
+    - room: {fileID: 11400000, guid: e50caddaf18755c4cb71549bf45bdce0, type: 2}
+    - room: {fileID: 11400000, guid: a26d6dc86fa801e45a69e76f173f8690, type: 2}
+    - room: {fileID: 11400000, guid: 48e20665fbe62464d837f53c41e224ce, type: 2}
+    - room: {fileID: 11400000, guid: 8784856bf8052164bb1d762f2eb7d183, type: 2}
+    - room: {fileID: 11400000, guid: 49abbbfa5eabf3045b959116fe8ec738, type: 2}
+    - room: {fileID: 11400000, guid: 16276b6a46654994c9607057f6f7e55c, type: 2}
+    mustSpawnLocations: []
+    exitLocations: []
+    pathLocation: []
   connections:
   - fromZone: BLv2
     toZone: BLv1
+    maxAmountOfConnections: 4
+  - fromZone: BLv2
+    toZone: BLv3
     maxAmountOfConnections: 4
   zoneLayout:
     gridSize: {x: 3, y: 3}
     cellSize: {x: 64, y: 16}
     cells:
     - row:
-      - 
+      - BLv3
       - 
       - 
     - row:
